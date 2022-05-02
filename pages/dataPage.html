@@ -17,15 +17,39 @@
       <h1 class="text-center">THIS IS THE WEATHER PAGE</h1>
     </header>
     <div class="container text-center">
-      <!-- GIF TESTING -->
-      <img style="height: 300px; width: 400px" src="/Images/windy.gif" />
+      <!-- SWITCH GRAPHIC DISPLAY WiP -->
+      <div class="container-img">
+        <img
+          class="img-fluid"
+          style="height: 500px; width: 500px"
+          src="/Images/Nintendo_display/DS_display.png"
+        />
+        <!-- UPPER-DISPLAY-GIF -->
+        <img
+          class="inner-image"
+          src="/Images/windy.gif"
+          alt="#"
+          style="height: 150px; width: 250px"
+        />
+        <!-- LOWER-DISPLAY -->
+        <div class="container-table inner-content-lower">
+          <table class="table table-bordered">
+            <tr>
+              <th id="degree"></th>
+            </tr>
+            <tr>
+              <th id="time"></th>
+            </tr>
+          </table>
+        </div>
+      </div>
 
       <!-- CURRENT WEATHER -->
       <div class="container">
         <h2 class="text-center">
           CURRENT WEATHER IN <span id="current-city"></span>
         </h2>
-        <table class="table" id="current-data-table">
+        <table class="table">
           <thead class="thead-light">
             <tr>
               <th class="">degree</th>
@@ -34,12 +58,11 @@
             </tr>
           </thead>
           <tr>
-            <th id="degree" class="text-center"></th>
             <th class="text-center"><img id="icon" src="#" alt="" /></th>
-            <th class="text-end" id="time"></th>
           </tr>
         </table>
       </div>
+
       <!--FORECAST WEATHER  -->
       <div class="container">
         <h2 class="text-center">FORECAST TODAY</h2>
@@ -56,6 +79,7 @@
         </table>
       </div>
     </div>
+
     <!-- SCRIPT LINKS -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -65,7 +89,7 @@
     <script src="/js/Forecast_7_days_test.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/test.js"></script>
-    <!-- FUNCTION CALLS -->
+    <!-- FUNCTION CALLS/ will be called later in a CONTROLLER FUNCTION ON THE MAIN.JS -->
     <script>
       setCurrentWeather();
       createTable();

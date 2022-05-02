@@ -9,18 +9,20 @@ const get = async (url) => {
   return await response.json();
 };
 
-//! CURRENT DATA
 //! CITY \\
-let city = "Berlin";
+let city = "berlin";
 document.getElementById("current-city").innerText = city.toUpperCase();
 //
+
+//! CURRENT DATA
+
 const getCurrentData = async () => {
   try {
     let data = await get(
       BASE_URL +
-        "/current.json?key=fb655837067d4475bd2103341220804&q=" +
-        city +
-        "&aqi=no"
+        `/current.json?key=fb655837067d4475bd2103341220804&q=" 
+        ${city}
+        "&aqi=no`
     );
     return data;
   } catch (e) {
@@ -49,6 +51,8 @@ const setCurrentWeather = async () => {
 //
 //! TABLE
 let createTable = () => {
+  //? get data that is filterd already as a param
+  let table = document.createElement("table"); // test
   let tbody = document.getElementById("forecast-body");
   let count = 0;
   // create TR
@@ -94,7 +98,7 @@ let setForecastWeather = async () => {
       if (countTemp % 5 == 0) {
         let tdPosition = document.getElementById("td-0-" + countTemp);
 
-        tdPosition.innerText = dataPerHour.hour[i].temp_c + "c°";
+        tdPosition.innerText = dataPerHour.hour[i].temp_c + "°c";
       }
       countTemp++;
     }

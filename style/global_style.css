@@ -18,3 +18,21 @@
   top: 50%;
   left: 51%;
 }
+/* Data-Page CSS */
+.inner-image {
+  position: absolute;
+  transform: translateY(-50%) translateX(-50%);
+  top: 31%;
+  left: 50%;
+}
+/* use same properties for lower container with content */
+.inner-content-lower {
+  position: absolute;
+  transform: translateY(-50%) translateX(-50%);
+  top: 68%;
+  left: 50%;
+}
+
+.container-img {
+  position: relative;
+}
