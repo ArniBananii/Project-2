@@ -16,7 +16,9 @@
     <header>
       <h1 class="text-center">THIS IS THE WEATHER PAGE</h1>
     </header>
+    <!-- MAIN-CONTAINER -->
     <div class="container text-center">
+      <!-- CURRENT WEATHER -->
       <!-- SWITCH GRAPHIC DISPLAY WiP -->
       <div class="container-img">
         <img
@@ -26,14 +28,14 @@
         />
         <!-- UPPER-DISPLAY-GIF -->
         <img
-          class="inner-image"
-          src="/Images/windy.gif"
+          class="inner-image img-fluid"
+          src="/Images/sunny.gif"
           alt="#"
           style="height: 150px; width: 250px"
         />
         <!-- LOWER-DISPLAY -->
         <div class="container-table inner-content-lower">
-          <table class="table table-bordered">
+          <table class="table">
             <tr>
               <th id="degree"></th>
             </tr>
@@ -43,41 +45,82 @@
           </table>
         </div>
       </div>
+      <h2 class="text-center">FORECAST TODAY</h2>
 
-      <!-- CURRENT WEATHER -->
-      <div class="container">
-        <h2 class="text-center">
-          CURRENT WEATHER IN <span id="current-city"></span>
-        </h2>
-        <table class="table">
-          <thead class="thead-light">
-            <tr>
-              <th class="">degree</th>
-              <th class="text-center">status</th>
-              <th class="text-end">current time</th>
-            </tr>
-          </thead>
-          <tr>
-            <th class="text-center"><img id="icon" src="#" alt="" /></th>
-          </tr>
-        </table>
+      <!-- FILTER -->
+      <div class="input-group">
+        <div class="input-group-prepend p-3 bg-primary">
+          <input type="radio" id="one-day" name="choose-days" value="0" />
+          <label for="one-day">ONE-DAY</label>
+        </div>
+        <div class="input-group-prepend p-3 bg-primary">
+          <input type="radio" id="two-day" name="choose-days" value="1" />
+          <label for="two-day">TWO-DAY'S</label>
+        </div>
+        <div class="input-group-prepend p-3 bg-primary">
+          <input type="radio" id="three-day" name="choose-days" value="2" />
+          <label for="three-day">THREE-DAY'S</label>
+        </div>
+
+        <input
+          class="form-control"
+          type="text"
+          placeholder="City"
+          id="city-input"
+        />
       </div>
 
-      <!--FORECAST WEATHER  -->
-      <div class="container">
-        <h2 class="text-center">FORECAST TODAY</h2>
-        <table class="table" id="forecast-data-table">
+      <!-- FORECAST CONTAINER -->
+
+      <div class="row">
+        <!--FORECAST WEATHER  -->
+        <table class="col table-bordered" id="forecast-data-table">
           <thead class="thead-light">
             <tr>
-              <th class="">degree</th>
+              <th class="">°c</th>
               <th class="text-center">status</th>
-              <th class="text-center">chance of rain</th>
-              <th class="text-end">time</th>
+              <th class="text-center">rain</th>
+              <th class="text-center">time</th>
             </tr>
           </thead>
           <tbody id="forecast-body"></tbody>
         </table>
+        <!-- TEST TABLE FOR FLEX ALIGNMENT -->
+        <table class="col table-bordered">
+          <thead>
+            <tr>
+              <th>c</th>
+              <th>status</th>
+              <th>rain</th>
+              <th>time</th>
+            </tr>
+          </thead>
+          <tr>
+            <th>one</th>
+            <th>two</th>
+            <th>three</th>
+            <th>four</th>
+          </tr>
+        </table>
+        <table class="col table-bordered">
+          <thead>
+            <tr>
+              <th>c</th>
+              <th>status</th>
+              <th>rain</th>
+              <th>time</th>
+            </tr>
+          </thead>
+          <tr>
+            <th>one</th>
+            <th>two</th>
+            <th>three</th>
+            <th>four</th>
+          </tr>
+        </table>
       </div>
+
+      <!-- end -->
     </div>
 
     <!-- SCRIPT LINKS -->
@@ -88,7 +131,7 @@
     ></script>
     <script src="/js/Forecast_7_days_test.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/test.js"></script>
+
     <!-- FUNCTION CALLS/ will be called later in a CONTROLLER FUNCTION ON THE MAIN.JS -->
     <script>
       setCurrentWeather();

@@ -1,4 +1,4 @@
-let forecast = {
+let testData = {
   location: {
     name: "Berlin",
     region: "Berlin",

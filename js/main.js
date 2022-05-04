@@ -10,8 +10,10 @@ const get = async (url) => {
 };
 
 //! CITY \\
-let city = "berlin";
-document.getElementById("current-city").innerText = city.toUpperCase();
+let cityCurrent = "berlin";
+let cityForecast = "berlin";
+//? create a default value that is getting replaced
+// document.getElementById("current-city").innerText = city.toUpperCase(); // will be replaced with input later
 //
 
 //! CURRENT DATA
@@ -21,7 +23,7 @@ const getCurrentData = async () => {
     let data = await get(
       BASE_URL +
         `/current.json?key=fb655837067d4475bd2103341220804&q=" 
-        ${city}
+        ${cityCurrent}
         "&aqi=no`
     );
     return data;
@@ -37,13 +39,7 @@ const setCurrentWeather = async () => {
   document.getElementById("degree").innerText =
     currentWeather.current.temp_c + " c°";
 
-  // ICON
-  document
-    .getElementById("icon")
-    .setAttribute("src", currentWeather.current.condition.icon);
-
   // TIME
-
   document.getElementById("time").innerText =
     currentWeather.location.localtime.slice(10) + "h";
 };
@@ -52,10 +48,12 @@ const setCurrentWeather = async () => {
 //! TABLE
 let createTable = () => {
   //? get data that is filterd already as a param
-  let table = document.createElement("table"); // test
+
+  // get ELEMENTS
+  let tableForecast = document.getElementById("forecast-data-table");
   let tbody = document.getElementById("forecast-body");
-  let count = 0;
   // create TR
+  let count = 0;
   for (let i = 0; i <= 24 - 1; i++) {
     let tr = document.createElement("tr");
     tr.setAttribute("id", i);
@@ -68,6 +66,7 @@ let createTable = () => {
       count++;
     }
   }
+  tableForecast.appendChild(tbody);
 };
 //! FORECAST !\\
 //! getter
@@ -75,18 +74,21 @@ let getForecastWeather = async () => {
   try {
     let data = await get(
       BASE_URL +
-        "/forecast.json?key=fb655837067d4475bd2103341220804&q=Berlin&days=3&aqi=no&alerts=no"
+        `/forecast.json?key=fb655837067d4475bd2103341220804&q=${cityForecast}&days=3&aqi=no&alerts=no`
     );
     return data;
   } catch (e) {
     console.log(e);
   }
 };
+
 //! setter
 let setForecastWeather = async () => {
   const forecastWeather = await getForecastWeather();
-  const dataPerHour = forecastWeather.forecast.forecastday[0]; // [0]=today [1]=tomrrow [2]=day after tomorrow
-  console.log(forecastWeather.forecast);
+  const forecastDay = forecastWeather.forecast.forecastday[0]; // [0]=today [1]=tomrrow [2]=day after tomorrow
+
+  let hours;
+
   let countTemp = 0;
   let countIcon = 1;
   let countRain = 2;
@@ -98,17 +100,17 @@ let setForecastWeather = async () => {
       if (countTemp % 5 == 0) {
         let tdPosition = document.getElementById("td-0-" + countTemp);
 
-        tdPosition.innerText = dataPerHour.hour[i].temp_c + "°c";
+        tdPosition.innerText = forecastDay.hour[i].temp_c + "°c";
       }
       countTemp++;
     }
   }
 
   // set ICON
-  for (let i = 0; i <= 24 - 1; i++) {
+  for (let i = 0; i <= forecastDay.hour.length - 1; i++) {
     for (let j = 1; j <= 1; j++) {
       let tdPosition = document.getElementById("td-1-" + countIcon);
-      let icon = dataPerHour.hour[i].condition.icon;
+      let icon = forecastDay.hour[i].condition.icon;
       let img = document.createElement("img");
 
       img.setAttribute("src", icon);
@@ -119,20 +121,20 @@ let setForecastWeather = async () => {
   }
 
   // set RAIN CHANCE
-  for (let i = 0; i <= dataPerHour.hour.length - 1; i++) {
+  for (let i = 0; i <= forecastDay.hour.length - 1; i++) {
     for (let j = 1; j <= 1; j++) {
       let tdPosition = document.getElementById("td-2-" + countRain);
-      let rainChance = dataPerHour.hour[i].chance_of_rain;
+      let rainChance = forecastDay.hour[i].chance_of_rain;
       tdPosition.setAttribute("class", "text-center");
       tdPosition.innerText = rainChance + "%";
     }
     countRain += 5;
   }
   //set TIME
-  for (let i = 0; i <= dataPerHour.hour.length - 1; i++) {
+  for (let i = 0; i <= forecastDay.hour.length - 1; i++) {
     for (let j = 1; j <= 1; j++) {
       let tdPosition = document.getElementById("td-3-" + countTime);
-      let time = dataPerHour.hour[i].time.slice(10);
+      let time = forecastDay.hour[i].time.slice(10);
       tdPosition.setAttribute("class", "text-end");
       tdPosition.innerText = time + "h";
     }
@@ -140,11 +142,50 @@ let setForecastWeather = async () => {
   }
 };
 
-// test
-// for (let i = 0; i <= 1; i++) {
-//   document.getElementById(`${i}`).setAttribute("class", "test");
-// }
+// to look inside of array's
+let ArrayHour = testData.forecast.forecastday[0].hour;
+console.log(ArrayHour);
+// i want to only display
 
-// to look inside of array
-let array = forecast.forecast.forecastday[0].hour;
-console.log(array);
+let dTest = new Date(ArrayHour[0].time);
+
+console.log(dTest);
+console.log(dTest.getHours());
+let dTestHour = dTest.getHours();
+console.log("this is the hour" + "-" + dTestHour);
+
+let datatest = ArrayHour.splice(10, 6);
+console.log(datatest);
+
+//test for checkbox
+let input1 = document.getElementById("one-day");
+let input2 = document.getElementById("two-day");
+let testi = testData.forecast.forecastday;
+console.log(testi);
+
+// input1.addEventListener("change", function () {
+//   if (input1.checked) {
+//     console.log(testi[1]);
+//   } else {
+//     console.log("this is off");
+//   }
+// });
+
+// let radio = document.getElementsByName("choose-days");
+
+// console.log(radio);
+// let indexpos;
+// let num;
+// for (var i = 0, max = radio.length; i < max; i++) {
+//   radio[i].onchange = function () {
+//     console.log(this.value);
+//     indexpos = this.value;
+//     console.log(indexpos);
+//     num = parseInt(indexpos);
+//     console.log(num);
+//     console.log(testData.forecast.forecastday[num]);
+//   };
+// }
+// console.log(indexpos);
+// console.log(num);
+// console.log(testData.forecast.forecastday[num]);
