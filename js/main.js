@@ -54,6 +54,7 @@ let createTable = () => {
   let tbody = document.getElementById("forecast-body");
   // create TR
   let count = 0;
+  // ! better like this for (let i = 0; i < 23; i++)
   for (let i = 0; i <= 24 - 1; i++) {
     let tr = document.createElement("tr");
     tr.setAttribute("id", i);
@@ -141,6 +142,9 @@ let setForecastWeather = async () => {
     countTime += 5;
   }
 };
+// ! generally speaking is good that you have a getWeather() function and a setWeather() function, but you can see how complex it got to
+// ! select the appropiate cells of the table and fill them with the right data. It would have been better to directly create and set the
+// ! table cells. also, remember that everytime you access the DOM, you are making a quite "expensive" operation.
 
 // to look inside of array's
 let ArrayHour = testData.forecast.forecastday[0].hour;
